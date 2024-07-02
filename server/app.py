@@ -88,21 +88,6 @@ def reviews():
 
         return response
 
-@app.route('/users')
-def users():
-
-    users = []
-    for user in User.query.all():
-        user_dict = user.to_dict()
-        users.append(user_dict)
-
-    response = make_response(
-        users,
-        200
-    )
-
-    return response
-
 @app.route('/reviews/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
 def review_by_id(id):
     review = Review.query.filter(Review.id == id).first()
@@ -148,6 +133,21 @@ def review_by_id(id):
         )
 
         return response
+
+@app.route('/users')
+def users():
+
+    users = []
+    for user in User.query.all():
+        user_dict = user.to_dict()
+        users.append(user_dict)
+
+    response = make_response(
+        users,
+        200
+    )
+
+    return response
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
